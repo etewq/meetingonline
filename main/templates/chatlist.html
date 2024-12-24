@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Чат{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="intro-container fade-in">
+    <span class="intro-text"><strong>Чат недоступен</strong></span>
+    <img src="{% static './images/sad.png' %}" alt="Intro" class="sad-img fade-in">
+    <strong class="intro-description fade-in">наш чат использовался не по назначению. был источником массового распространения наркотических и иных психотропных веществ</strong>
+</div>
+{% else %}
+<div class="warning-container fade-in">
+    <span class="warning-text">Для начала пройдите регистрацию!</span>
+    <a href="{% url 'signup_page' %}" class="warning-button">Регистрация</a>
+</div>
+{% endif %}
+{% endblock %}

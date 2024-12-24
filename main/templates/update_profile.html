@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Редактировать анкету{% endblock %}
+
+{% block content %}
+<div class="container fade-in">
+    <br><h1 class="auth-title">Редактировать анкету:</h1><br>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-field">
+            Имя в анкете:
+            {{ form.name }}
+        </div>
+        
+        <div class="form-field">
+            О себе:
+            {{ form.bio }}
+        </div>
+        
+        <div class="form-field">
+            Изображение:
+            <label for="id_image" class="custom-file-button" id="file-button">
+            {% if profile.image %}
+            <span class="image-name">{{ profile.image.name }}</span>
+            {% endif %}</label>
+            <input type="file" name="image" id="id_image">
+            
+        </div>
+        
+        
+        <div class="form-field">
+            Дата рождения:
+            {{ form.date_birth }}
+        </div>
+        
+        <div class="form-field">
+            <label for="interests">Интересы:</label>
+            <div class="interests">
+                {% for interest in form.fields.interests.queryset %}
+                    <input type="checkbox" id="interest-{{ interest.id }}" name="interests" value="{{ interest.id }}" 
+                           style="display:none;" {% if interest in profile.interests.all %}checked{% endif %}>
+                    <div class="interest-item" data-id="{{ interest.id }}">
+                        <img src="{{ interest.icon.url }}" alt="{{ interest.title }}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    
+        <button type="submit">Редактировать анкету</button>
+    </form>
+</div>
+{% endblock %}

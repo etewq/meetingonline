@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<section class="auth">
+    <div class="container fade-in">
+        <h3 class="auth-title">Вход в аккаунт</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button class="auth-button">Вход</button>
+        </form><br>
+        <p class="help">Если у вас нет аккаунта, <a href="{% url 'signup_page' %}" class="help-link">зарегистрируйтесь.</a></p>
+    </div>
+</section>
+{% endblock %}

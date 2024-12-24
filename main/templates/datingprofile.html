@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Анкета | {{ profile.name }}{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <img src="{{ profile.image.url }}" alt="{{ profile.name }}" class="profile-dating-img fade-in">
+    <div class="profile-dating-info">
+        <strong class="profile-dating-name fade-in">{{ profile.name }}</strong>
+        <span class="profile-dating-age fade-in">Возраст: {{ profile.age }}</span>
+    </div>
+    <div class="profile-dating-categories fade-in">
+        {% for interest in profile.interests.all %}
+        <img src="{{ interest.icon.url }}" alt="{{ interest.title }}" class="profile-dating-category-item">
+        {% endfor %}
+    </div>
+    <div class="profile-dating-description fade-in">{{ profile.bio }}</div>
+    <a href="{% url 'chatlist' %}" class="profile-dating-button fade-in">
+        Написать
+      </a>
+      
+</div>
+{% endblock %}

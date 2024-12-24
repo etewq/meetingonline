@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Анкеты{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container fade-in">
+    <strong class="list-dating-title">Все анкеты:</strong>
+    <div class="dating-list fade-in">
+        {% for profile in profiles %}
+        <a href="{% url 'datingprofile' profile.id %}" class="list-dating-card-link">
+            <div class="list-dating-card">
+                <div class="list-dating-img-container">
+                    <img src="{{ profile.image.url }}" alt="{{ profile.name }}" class="list-dating-img">
+                </div>
+                <div class="list-dating-info">
+                    <strong class="list-dating-name">{{ profile.name }}</strong>
+                    <span class="list-dating-age">{{ profile.date_birth }}</span>
+                </div>
+                <div class="list-dating-categories">
+                    {% for interest in profile.interests.all %}
+                    <img src="{{ interest.icon.url }}" alt="{{ interest.title }}" class="list-dating-category-item">
+                    {% endfor %}
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="warning-container fade-in">
+    <span class="warning-text">Для начала пройдите регистрацию!</span>
+    <a href="{% url 'signup_page' %}" class="warning-button">Регистрация</a>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Добро пожаловать!{% endblock %}
+
+{% block content %}
+<div class="intro-container fade-in">
+    <span class="intro-text"><strong>meeting.online</strong></span>
+    <img src="{% static './images/intro.png' %}" alt="Intro" class="intro-img fade-in">
+    <strong class="intro-title fade-in">«Здесь начинаются искренние знакомства»</strong>
+    <div class="intro-description fade-in">Найдите людей, которые разделяют ваши интересы, мечты и увлечения. Зарегистрируйтесь и начните новое знакомство сегодня!</div>
+</div>
+{% endblock %}

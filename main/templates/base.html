@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+</head>
+<body>
+    <header class="header fade-in">
+        <div class="container">
+            <img src="{% static './images/menu.svg' %}" alt="Menu" class="menu-btn" onclick="toggleMenu()">
+            <img src="{% static './images/logo.svg' %}" alt="Logo" class="logo">
+        </div>
+    </header>
+    <div id="menu-list" class="menu-list-hidden">
+        <div class="container">
+            <ul class="menu-list">
+                <li class="menu-list-item">
+                    <a href="{% url 'datinglist' %}" class="menu-list-link">
+                        <img src="{% static './images/menu-list/clipboard.svg' %}" alt="Clipboard">
+                        <span>Анкеты</span>
+                    </a>
+                </li>
+                <li class="menu-list-item">
+                    <a href="{% url 'chatlist' %}" class="menu-list-link">
+                        <img src="{% static './images/menu-list/chat.svg' %}" alt="Chat">
+                        <span>Чат</span>
+                    </a>
+                </li>
+                {% if user.is_authenticated %}
+                    {% if user.dating_profile %}
+                        <li class="menu-list-item">
+                            <a href="{% url 'profile_update' user.dating_profile.pk %}" class="menu-list-link">
+                                <img src="{% static './images/menu-list/edit-profile.svg' %}" alt="Edit Profile">
+                                <span>Редактировать анкету</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="menu-list-item">
+                            <a href="{% url 'profile_create' %}" class="menu-list-link">
+                                <img src="{% static './images/menu-list/add-profile.svg' %}" alt="Create Profile" class="add-profile">
+                                <span>Создать анкету</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="menu-list-item">
+                        <a href="{% url 'logout_action' %}" class="menu-list-link">
+                            <img src="{% static './images/menu-list/log-out.svg' %}" alt="Log-Out">
+                            <span>Выйти: {{ user.username }}</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="menu-list-item">
+                        <a href="{% url 'signup_page' %}" class="menu-list-link">
+                            <img src="{% static './images/menu-list/sign-up.svg' %}" alt="Sign-Up">
+                            <span>Регистрация</span>
+                        </a>
+                    </li>
+                    <li class="menu-list-item">
+                        <a href="{% url 'login_page' %}" class="menu-list-link">
+                            <img src="{% static './images/menu-list/log-in.svg' %}" alt="Log-In">
+                            <span>Войти</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    {% block content %}{% endblock %}
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
